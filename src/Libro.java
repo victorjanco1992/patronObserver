@@ -1,13 +1,14 @@
 public class Libro {
     private String titulo;
-    private String estado;
+    private EstadoLibro estado;
 
-    public Libro(String estado) {
-        this.estado = "MALO";
+    public enum EstadoLibro {
+        NUEVO, BUENO, REGULAR, MALO
     }
 
-    public Libro() {
-
+    public Libro(String titulo, EstadoLibro estado) {
+        this.titulo = titulo;
+        this.estado = estado;
     }
 
     public String getTitulo() {
@@ -18,11 +19,15 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public String getEstado() {
+    public EstadoLibro getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoLibro estado) {
         this.estado = estado;
+    }
+
+    public boolean estaDeteriorado() {
+        return estado == EstadoLibro.MALO || estado == EstadoLibro.REGULAR;
     }
 }

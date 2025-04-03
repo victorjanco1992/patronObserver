@@ -1,4 +1,3 @@
 public interface ILibroMalEstado {
-
-    public void update();
+    void update(Subject subject, String evento, Libro libro);
 }

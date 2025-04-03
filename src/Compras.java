@@ -1,8 +1,8 @@
-
-public class Compras implements ILibroMalEstado{
+public class Compras implements ILibroMalEstado {
     @Override
-    public void update() {
-        System.out.println("Compras: ");
-        System.out.println("Solicito nueva cotizacion...");
+    public void update(Subject subject, String evento, Libro libro) {
+        if (evento.equals("LIBRO_MALO")) {
+            System.out.println("Compras: Solicito nueva cotización para reemplazar '" + libro.getTitulo() + "'...");
+        }
     }
 }

@@ -1,29 +1,33 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class AlarmaLibro implements Subject {
-
-    public static ArrayList<ILibroMalEstado> observadores =
-            new ArrayList<ILibroMalEstado>();
+    private Map<String, Set<ILibroMalEstado>> observadores = new HashMap<>();
 
     @Override
-    public void attach(ILibroMalEstado observador) {
-        observadores.add(observador);
-
+    public void attach(String evento, ILibroMalEstado observador) {
+        observadores.putIfAbsent(evento, new HashSet<>());
+        observadores.get(evento).add(observador);
     }
 
     @Override
-    public void dettach(ILibroMalEstado observador) {
-        observadores.remove(observador);
-
-    }
-
-    @Override
-    public void notifyObservers() {
-
-        for (int i = 0; i < observadores.size(); i++){
-            observadores.get(i).update();
+    public void detach(String evento, ILibroMalEstado observador) {
+        if (observadores.containsKey(evento)) {
+            observadores.get(evento).remove(observador);
+            if (observadores.get(evento).isEmpty()) {
+                observadores.remove(evento);
+            }
         }
+    }
 
-
+    @Override
+    public void notifyObservers(String evento, Libro libro) {
+        if (observadores.containsKey(evento)) {
+            for (ILibroMalEstado observador : observadores.get(evento)) {
+                observador.update(this, evento, libro);
+            }
+        }
     }
 }

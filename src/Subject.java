@@ -1,5 +1,7 @@
+import java.util.*;
+
 public interface Subject {
-    public void attach(ILibroMalEstado observador);
-    public void dettach(ILibroMalEstado observador);
-    public void notifyObservers();
+    void attach(String evento, ILibroMalEstado observador);
+    void detach(String evento, ILibroMalEstado observador);
+    void notifyObservers(String evento, Libro libro);
 }

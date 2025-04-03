@@ -1,11 +1,15 @@
 public class Biblioteca {
+    private AlarmaLibro alarma;
 
-    public void devuelveLibro(Libro libro){
+    public Biblioteca(AlarmaLibro alarma) {
+        this.alarma = alarma;
+    }
 
-        if (libro.getEstado().equals("MALO")){
-           AlarmaLibro a =new AlarmaLibro();
-
-           a.notifyObservers();
+    public void devuelveLibro(Libro libro) {
+        if (libro.estaDeteriorado()) {
+            alarma.notifyObservers("LIBRO_MALO", libro);
+        } else {
+            alarma.notifyObservers("LIBRO_BUENO", libro);
         }
     }
 }
